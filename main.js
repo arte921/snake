@@ -139,7 +139,7 @@ function nextstep(){
 
   dx=xapple-xhead;
   dy=yapple-yhead;
-
+console.log(dx,dy);
   if(Math.abs(dy)>Math.abs(dx)){
     if(dy>0){
       move('s');
@@ -159,5 +159,5 @@ function nextstep(){
 }
 
 nextstep();
-
+window.setInterval(nextstep,200);
 console.log(data);
