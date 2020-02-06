@@ -1,1 +1,3 @@
-# snake-ai
+# snake
+
+the snake game in javascript
