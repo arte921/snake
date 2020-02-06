@@ -15,8 +15,8 @@ var yt = Math.floor(mcbheight/squaresize);
 
 var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
 var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
-var xsnake = new Array(3);
-var ysnake = new Array(3);
+var xsnake = new Array(xt*yt).fill(-1);
+var ysnake = new Array(xt*yt).fill(-1);
 
 var startx = Math.floor(Math.random()*(xt-5))+4;
 var starty = Math.floor(Math.random()*(yt-5))+4;
@@ -102,53 +102,64 @@ function move(d,n){
 
   let i=0;
   while(i<n){
-    switch (d){
-      case 'n':
+    xsnake.forEach((item, index) => {
+      if(item >= 0 && index > 0){
+        xsnake[index]=xsnake[index-1];
+        ysnake[index]=xsnake[index-1];
+        items[item][ysnake[index]] = 2;
+      }else if(item >= 0){
+        switch (d){
+          case 'n':
+           ysnake[0]=ysnake[0]-2;
+          break;
+          case 'e':
+            xsnake[0]=xsnake[0]+1;
+          break;
+          case 's':
+            ysnake[0]=ysnake[0]+1;
+          break;
+          case 'w':
+            xsnake[0]=xsnake[0]-1;
+          break;
+        }
+        items[item][ysnake[index]] = 1;
+      }
 
-      break;
-      case 'e':
+    });
+  }
 
-      break;
-      case 's':
+}
 
-      break;
-      case 'w':
+function nextstep(){
+  spawnapple();
 
-      break;
+  data = analyze();
+  xhead = data[2];
+  yhead = data[3];
+  xapple = data[4];
+  yapple = data[5];
+
+  dx=xapple-xhead;
+  dy=yapple-yhead;
+
+  if(Math.abs(dy)>Math.abs(dx)){
+    if(dy>0){
+      move('s');
+    }else if(dy<0){
+      move('n');
+    }
+  }else{
+    if(dx>0){
+      move('e');
+    }else if(dx<0){
+      move('w');
+    }else{
+      spawnapple();
     }
   }
-
+  render();
 }
 
-spawnapple();
-render();
-
-data = analyze();
-xhead = data[2];
-yhead = data[3];
-xapple = data[4];
-yapple = data[5];
-
-dx=xhead-xapple;
-dy=yhead-yapple;
-
-if(Math.abs(dy)>Math.abs(dx)){
-  if(dy>0){
-
-  }else if(dy<0){
-
-  }
-}else{
-  if(dx>0){
-
-  }else if(dx<0){
-
-  }else{
-
-
-    spawnapple();
-  }
-}
-
+nextstep();
 
 console.log(data);
