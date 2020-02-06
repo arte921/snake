@@ -15,8 +15,8 @@ var yt = Math.floor(mcbheight/squaresize);
 
 var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
 var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
-var xsnake = new Array(xt*yt).fill(-1);
-var ysnake = new Array(xt*yt).fill(-1);
+var xsnake = new Array(xt*yt).fill(-2);
+var ysnake = new Array(xt*yt).fill(-2);
 
 var startx = Math.floor(Math.random()*(xt-5))+4;
 var starty = Math.floor(Math.random()*(yt-5))+4;
