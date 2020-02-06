@@ -15,8 +15,22 @@ var yt = Math.floor(mcbheight/squaresize);
 
 var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
 var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
+var xsnake = new Array(3);
+var ysnake = new Array(3);
 
-items[1][2] = 1;
+var startx = Math.floor(Math.random()*(xt-5))+4;
+var starty = Math.floor(Math.random()*(yt-5))+4;
+
+xsnake[0] = startx;
+ysnake[0] = starty;
+xsnake[1] = startx-1;
+ysnake[1] = starty-1;
+xsnake[2] = startx-2;
+ysnake[2] = starty-2;
+
+items[startx][starty] = 1;
+items[startx-1][starty-1] = 2;
+items[startx-2][starty-2] = 2;
 
 function render(){
   ctx.clearRect(0,0,mcbwidth,mcbheight);
@@ -81,6 +95,11 @@ function spawnapple(){
   }
 }
 function move(d,n){
+  data = analyze();
+  length = data[1];
+  xhead = data[2];
+  yhead = data[3];
+
   let i=0;
   while(i<n){
     switch (d){
