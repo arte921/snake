@@ -50,7 +50,7 @@ function render(){
           ctx.fillStyle = 'rgb(255,0,0)';
         break;
       }
-      ctx.fillRect(squaresize*x,squaresize*y,squaresize,squaresize);
+      ctx.fillRect(1+squaresize*x,1+squaresize*y,squaresize-1,squaresize-1);
     });
   });
 }
@@ -129,19 +129,26 @@ yhead = data[3];
 xapple = data[4];
 yapple = data[5];
 
-dx=Math.abs(xhead-xapple);
-dy=Math.abs(yhead-yapple);
+dx=xhead-xapple;
+dy=yhead-yapple;
 
-if(dy>dx){
+if(Math.abs(dy)>Math.abs(dx)){
+  if(dy>0){
 
+  }else if(dy<0){
+
+  }
 }else{
+  if(dx>0){
 
+  }else if(dx<0){
+
+  }else{
+
+
+    spawnapple();
+  }
 }
 
-if(xhead-xapple < 0){
-
-}else if(xhead-xapple > 0){
-
-}
 
 console.log(data);
