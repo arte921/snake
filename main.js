@@ -102,15 +102,9 @@ function move(d){
   console.log(d);
   let i=0;
   console.log(xsnake,ysnake);
-
   xsnake.forEach(function(item, index){
-    if(item > -1){
-      if(index < length && index > 0){
-        xsnake[index]=xsnake[index-1];
-        ysnake[index]=ysnake[index-1];
-        console.log(item,xsnake[item],ysnake[item],index);
-        items[xsnake[index]][ysnake[index]] = 2;
-      }else if(index < length){
+    if(item !== -2){
+      if(index == 0){
         switch (d){
           case 'n':
            ysnake[0]=ysnake[0]-1;
@@ -125,9 +119,35 @@ function move(d){
             xsnake[0]=xsnake[0]-1;
           break;
         }
-        items[item][ysnake[index]] = 1;
+      }else{
+        xsnake[index+1]=xsnake[index];
+        ysnake[index+1]=ysnake[index];
+        if(xsnake[index+1] == -2){
+          items[xsnake[index]][ysnake[index]];
+          xsnake[index]=-2;
+          ysnake[index]=-2;
+        }
       }
     }
+
+
+
+    /*
+    if(xsnake[index] > -1 && xsnake[index+1] > -1){
+      if(index < length && index > 0){
+        xsnake[index]=xsnake[index-1];
+        ysnake[index]=ysnake[index-1];
+        console.log(item,xsnake[item],ysnake[item],index);
+        items[xsnake[index]][ysnake[index]] = 2;
+      }else if(index < length){
+
+        items[xsnake[index]][ysnake[index]] = 2;
+      }
+    }else if(item > -1 && xsnake[index-1] > -1 && xsnake[index+1] < -1){
+      items[xsnake[index]][ysnake[index]] = 0;
+      xsnake[index] = -2;
+      ysnake[index] = -2;
+    }*/
   });
 
   render();
@@ -167,5 +187,5 @@ function nextstep(){
 nextstep();
 */
 render();
-//window.setInterval(nextstep,1000);
+
 console.log(data);
