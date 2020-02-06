@@ -1,7 +1,7 @@
 var mcbwidth = document.body.clientWidth;
 var mcbheight = document.body.clientHeight;
 
-var empty,length,xhead,yhead,xapple,yapple,going;
+var empty,length,xhead,yhead,xapple,yapple,going,data,dx;
 
 var canvas = document.getElementById('canvas');
 canvas.width = mcbwidth;
@@ -80,8 +80,45 @@ function spawnapple(){
     }
   }
 }
+function move(d){
+  switch (d){
+    case 'n':
+
+    break;
+    case 'e':
+
+    break;
+    case 's':
+
+    break;
+    case 'w':
+
+    break;
+  }
+}
 
 spawnapple();
 render();
 
-console.log(analyze());
+data = analyze();
+xhead = data[2];
+yhead = data[3];
+xapple = data[4];
+yapple = data[5];
+
+dx=Math.abs(xhead-xapple);
+dy=Math.abs(yhead-yapple);
+
+if(dy>dx){
+
+}else{
+
+}
+
+if(xhead-xapple < 0){
+
+}else if(xhead-xapple > 0){
+
+}
+
+console.log(data);
