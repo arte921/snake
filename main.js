@@ -1,7 +1,7 @@
 var mcbwidth = document.body.clientWidth;
 var mcbheight = document.body.clientHeight;
 
-var empty,length,posx,posy,xapple,yapple,going;
+var empty,length,xhead,yhead,xapple,yapple,going;
 
 var canvas = document.getElementById('canvas');
 canvas.width = mcbwidth;
@@ -40,7 +40,6 @@ function render(){
     });
   });
 }
-
 function analyze(){
   empty = 0;
   length = 0;
@@ -52,8 +51,8 @@ function analyze(){
         break;
         case 1:
           length++;
-          posx=x;
-          posy=y;
+          xhead=x;
+          yhead=y;
         break;
         case 2:
           length++;
@@ -65,18 +64,15 @@ function analyze(){
       }
     });
   });
-  return [empty,length,posx,posy,xapple,yapple];
+  return [empty,length,xhead,yhead,xapple,yapple];
 }
-
 function spawnapple(){
   let x,y;
-
   if(analyze()[0]>0){
     let going = true;
     while(going){
       x=Math.floor(Math.random()*xt);
       y=Math.floor(Math.random()*yt);
-      //console.log(x,y);
       if(items[x][y] == 0){
         items[x][y] = 3;
         going=false;
@@ -87,3 +83,5 @@ function spawnapple(){
 
 spawnapple();
 render();
+
+console.log(analyze());
