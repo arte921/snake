@@ -80,21 +80,25 @@ function spawnapple(){
     }
   }
 }
-function move(d){
-  switch (d){
-    case 'n':
+function move(d,n){
+  let i=0;
+  while(i<n){
+    switch (d){
+      case 'n':
 
-    break;
-    case 'e':
+      break;
+      case 'e':
 
-    break;
-    case 's':
+      break;
+      case 's':
 
-    break;
-    case 'w':
+      break;
+      case 'w':
 
-    break;
+      break;
+    }
   }
+
 }
 
 spawnapple();
