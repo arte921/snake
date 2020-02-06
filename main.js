@@ -124,10 +124,8 @@ function move(d,n){
         }
         items[item][ysnake[index]] = 1;
       }
-
     });
   }
-
 }
 
 function nextstep(){
