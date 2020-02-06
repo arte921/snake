@@ -8,7 +8,7 @@ canvas.width = mcbwidth;
 canvas.height = mcbheight;
 var ctx = canvas.getContext('2d');
 
-var squaresize = 50; //in px
+var squaresize = 100; //in px
 
 var xt = Math.floor(mcbwidth/squaresize);
 var yt = Math.floor(mcbheight/squaresize);
@@ -17,6 +17,8 @@ var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
 var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
 var xsnake = new Array(xt*yt).fill(-2);
 var ysnake = new Array(xt*yt).fill(-2);
+
+console.log(xsnake,ysnake);
 
 var startx = Math.floor(Math.random()*(xt-5))+4;
 var starty = Math.floor(Math.random()*(yt-5))+4;
@@ -110,7 +112,7 @@ function move(d,n){
       }else if(item >= 0){
         switch (d){
           case 'n':
-           ysnake[0]=ysnake[0]-2;
+           ysnake[0]=ysnake[0]-1;
           break;
           case 'e':
             xsnake[0]=xsnake[0]+1;
@@ -139,18 +141,18 @@ function nextstep(){
 
   dx=xapple-xhead;
   dy=yapple-yhead;
-console.log(dx,dy);
+  console.log(dx,dy);
   if(Math.abs(dy)>Math.abs(dx)){
     if(dy>0){
-      move('s');
-    }else if(dy<0){
-      move('n');
+      move('s',1);
+    }else{
+      move('n',1);
     }
   }else{
     if(dx>0){
-      move('e');
+      move('e',1);
     }else if(dx<0){
-      move('w');
+      move('w',1);
     }else{
       spawnapple();
     }
@@ -159,5 +161,5 @@ console.log(dx,dy);
 }
 
 nextstep();
-window.setInterval(nextstep,200);
+window.setInterval(nextstep,1000);
 console.log(data);
