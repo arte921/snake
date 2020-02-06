@@ -1,6 +1,8 @@
 var mcbwidth = document.body.clientWidth;
 var mcbheight = document.body.clientHeight;
 
+var empty,length,posx,posy,xapple,yapple,going;
+
 var canvas = document.getElementById('canvas');
 canvas.width = mcbwidth;
 canvas.height = mcbheight;
@@ -10,16 +12,12 @@ var squaresize = 50; //in px
 
 var xt = Math.floor(mcbwidth/squaresize);
 var yt = Math.floor(mcbheight/squaresize);
-var total = xt*yt;
 
 var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
-console.log(grid);
 var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
 
-var snakelength = 3;
-items[2][2] = 1;
+items[1][2] = 1;
 
-console.log(items);
 function render(){
   ctx.clearRect(0,0,mcbwidth,mcbheight);
   grid.forEach(function(element,x){
@@ -43,5 +41,49 @@ function render(){
   });
 }
 
+function analyze(){
+  empty = 0;
+  length = 0;
+  grid.forEach(function(element,x){
+    element.forEach(function(id,y){
+      switch (items[x][y]) {
+        case 0:
+          empty++;
+        break;
+        case 1:
+          length++;
+          posx=x;
+          posy=y;
+        break;
+        case 2:
+          length++;
+        break;
+        case 3:
+          xapple=x;
+          yapple=y;
+        break;
+      }
+    });
+  });
+  return [empty,length,posx,posy,xapple,yapple];
+}
+
+function spawnapple(){
+  let x,y;
+
+  if(analyze()[0]>0){
+    let going = true;
+    while(going){
+      x=Math.floor(Math.random()*xt);
+      y=Math.floor(Math.random()*yt);
+      //console.log(x,y);
+      if(items[x][y] == 0){
+        items[x][y] = 3;
+        going=false;
+      }
+    }
+  }
+}
+
+spawnapple();
 render();
-console.log(total);
