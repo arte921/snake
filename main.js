@@ -24,13 +24,13 @@ var starty = Math.floor(Math.random()*(yt-5))+4;
 xsnake[0] = startx;
 ysnake[0] = starty;
 xsnake[1] = startx-1;
-ysnake[1] = starty-1;
+ysnake[1] = starty;
 xsnake[2] = startx-2;
-ysnake[2] = starty-2;
+ysnake[2] = starty;
 
 items[startx][starty] = 1;
-items[startx-1][starty-1] = 2;
-items[startx-2][starty-2] = 2;
+items[startx-1][starty] = 2;
+items[startx-2][starty] = 2;
 
 function render(){
   ctx.clearRect(0,0,mcbwidth,mcbheight);
