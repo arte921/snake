@@ -6,25 +6,24 @@ canvas.width = mcbwidth;
 canvas.height = mcbheight;
 var ctx = canvas.getContext('2d');
 
-var squaresize = 20; //in px
+var squaresize = 50; //in px
 
 var xt = Math.floor(mcbwidth/squaresize);
 var yt = Math.floor(mcbheight/squaresize);
-
-
-
-var grid = new Array(xt).fill(new Array(yt).fill(0));
-var items = new Array(xt).fill(new Array(yt).fill(0));
-
-var length = 3;
-
 var total = xt*yt;
 
-items[2][20] = 1;
+var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
+console.log(grid);
+var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
 
+var snakelength = 3;
+items[2][2] = 1;
+
+console.log(items);
 function render(){
+  ctx.clearRect(0,0,mcbwidth,mcbheight);
   grid.forEach(function(element,x){
-    element.forEach(function(element,y){
+    element.forEach(function(id,y){
       switch (items[x][y]) {
         case 0:
           ctx.fillStyle = 'rgb(0,0,0)';
@@ -43,8 +42,6 @@ function render(){
     });
   });
 }
-
-
 
 render();
 console.log(total);
