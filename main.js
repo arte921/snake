@@ -1,7 +1,7 @@
 var mcbwidth = document.body.clientWidth;
 var mcbheight = document.body.clientHeight;
 
-var empty,length,xhead,yhead,xapple,yapple,going,data,dx;
+var empty,length,xhead,yhead,xapple,yapple,going,data,dx,index;
 
 var canvas = document.getElementById('canvas');
 canvas.width = mcbwidth;
@@ -15,8 +15,8 @@ var yt = Math.floor(mcbheight/squaresize);
 
 var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
 var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
-var xsnake = new Array(xt*yt).fill(-2);
-var ysnake = new Array(xt*yt).fill(-2);
+var xsnake = new Array(3).fill(-2);
+var ysnake = new Array(3).fill(-2);
 
 var startx = Math.floor(Math.random()*(xt-5))+4;
 var starty = Math.floor(Math.random()*(yt-5))+4;
@@ -53,6 +53,7 @@ function render(){
       ctx.fillRect(1+squaresize*x,1+squaresize*y,squaresize-1,squaresize-1);
     });
   });
+  console.log('rendered');
 }
 function analyze(){
   empty = 0;
@@ -99,93 +100,10 @@ function move(d){
   length = data[1];
   xhead = data[2];
   yhead = data[3];
-  console.log(d);
-  let i=0;
-  console.log(xsnake,ysnake);
-  xsnake.forEach(function(item, index){
-    if(item !== -2){
-      if(index == 0){
-        switch (d){
-          case 'n':
-           ysnake[0]=ysnake[0]-1;
-          break;
-          case 'e':
-            xsnake[0]=xsnake[0]+1;
-          break;
-          case 's':
-            ysnake[0]=ysnake[0]+1;
-          break;
-          case 'w':
-            xsnake[0]=xsnake[0]-1;
-          break;
-        }
-      }else{
-        xsnake[index+1]=xsnake[index];
-        ysnake[index+1]=ysnake[index];
-        if(xsnake[index+1] == -2){
-          items[xsnake[index]][ysnake[index]];
-          xsnake[index]=-2;
-          ysnake[index]=-2;
-        }
-      }
-    }
-
-
-
-    /*
-    if(xsnake[index] > -1 && xsnake[index+1] > -1){
-      if(index < length && index > 0){
-        xsnake[index]=xsnake[index-1];
-        ysnake[index]=ysnake[index-1];
-        console.log(item,xsnake[item],ysnake[item],index);
-        items[xsnake[index]][ysnake[index]] = 2;
-      }else if(index < length){
-
-        items[xsnake[index]][ysnake[index]] = 2;
-      }
-    }else if(item > -1 && xsnake[index-1] > -1 && xsnake[index+1] < -1){
-      items[xsnake[index]][ysnake[index]] = 0;
-      xsnake[index] = -2;
-      ysnake[index] = -2;
-    }*/
-  });
 
   render();
 }
 
-/*
-function nextstep(){
-  //spawnapple();
-
-  data = analyze();
-  xhead = data[2];
-  yhead = data[3];
-  xapple = data[4];
-  yapple = data[5];
-
-  dx=xapple-xhead;
-  dy=yapple-yhead;
-  console.log(dx,dy);
-  if(Math.abs(dy)>Math.abs(dx)){
-    if(dy>0){
-      move('s',1);
-    }else{
-      move('n',1);
-    }
-  }else{
-    if(dx>0){
-      move('e',1);
-    }else if(dx<0){
-      move('w',1);
-    }else{
-      spawnapple();
-    }
-  }
-  render();
-}
-
-nextstep();
-*/
 render();
 
 console.log(data);
