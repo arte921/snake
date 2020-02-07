@@ -15,8 +15,9 @@ var yt = Math.floor(mcbheight/squaresize);
 
 var grid = new Array(xt).fill(null).map(() => new Array(yt).fill(null));
 var items = new Array(xt).fill(null).map(() => new Array(yt).fill(0));
-var xsnake = new Array(3).fill(-2);
-var ysnake = new Array(3).fill(-2);
+var xsnake = new Array(3);
+var ysnake = new Array(3);
+var psnake = new Array(3);
 
 var startx = Math.floor(Math.random()*(xt-5))+4;
 var starty = Math.floor(Math.random()*(yt-5))+4;
@@ -68,8 +69,10 @@ function analyze(){
           length++;
           xhead=x;
           yhead=y;
+          psnake[xsnake.indexOf(x)] = 1;
         break;
         case 2:
+          psnake[xsnake.indexOf(x)] = 2;
           length++;
         break;
         case 3:
@@ -79,11 +82,11 @@ function analyze(){
       }
     });
   });
-  return [empty,length,xhead,yhead,xapple,yapple];
 }
 function spawnapple(){
   let x,y;
-  if(analyze()[0]>0){
+  analyze();
+  if(empty>0){
     let going = true;
     while(going){
       x=Math.floor(Math.random()*xt);
@@ -96,11 +99,31 @@ function spawnapple(){
   }
 }
 function move(d){
-  data = analyze();
-  length = data[1];
-  xhead = data[2];
-  yhead = data[3];
+  analyze();
 
+  xsnake.forEach(function(useless,index){
+    if(psnake[index]==1){ //if head
+      console.log('head');
+      switch (d){
+        case 'n':
+         ysnake[0]=ysnake[0]-1;
+        break;
+        case 'e':
+          xsnake[0]=xsnake[0]+1;
+        break;
+        case 's':
+          ysnake[0]=ysnake[0]+1;
+        break;
+        case 'w':
+          xsnake[0]=xsnake[0]-1;
+        break;
+      }
+    }else{
+      console.log('body');
+      xsnake[index] = xsnake[index-1];
+      ysnake[index] = ysnake[index-1];
+    }
+  })
   render();
 }
 
